@@ -57,4 +57,5 @@ fi
 mkdir -p /usr/src/eoip
 wget --no-check-certificate -q https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/linux-eoip/linux-eoip-0.5.tgz -O /usr/src/eoip.tgz
 tar -xzf /usr/src/eoip.tgz --strip 1 -C /usr/src/eoip
-/usr/src/eoip/bootstrap.sh
+cd /usr/src/eoip
+./bootstrap.sh
