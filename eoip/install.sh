@@ -18,3 +18,16 @@
 # This notice must be untouched at all times.                           #
 #-----------------------------------------------------------------------#
 # https://www.4b42.com/support/kb/5c227f1f45dbe-Ethernet-over-IP-unter-Linux-Debian
+
+# check if running on supported os
+if ! [ -f "/etc/debian_version" ]; then
+   echo "Only Debian/Ubuntu are supported. Please be patient or install it manually."
+   exit 1
+fi
+# check if script run as root
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+# first of all we take a look for system update
+apt-get -qq update && apt-get -qq upgrade
