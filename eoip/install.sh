@@ -31,3 +31,11 @@ if [ "$(id -u)" != "0" ]; then
 fi
 # first of all we take a look for system update
 apt-get -qq update && apt-get -qq upgrade
+
+# check if libtool is installed
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' libtool|grep "install ok installed")
+echo Checking for libtool: $PKG_OK
+if [ "" == "$PKG_OK" ]; then
+   echo "No libtool installed. Installing..."
+   apt-get -qq install libtool
+fi
