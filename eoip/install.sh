@@ -32,6 +32,13 @@ fi
 # first of all we take a look for system update
 apt-get -qq update && apt-get -qq upgrade
 
+# check if automake is installed
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' automake|grep "install ok installed")
+echo Checking for automake: $PKG_OK
+if [ "" == "$PKG_OK" ]; then
+   echo "No automake installed. Installing..."
+   apt-get -qq install automake
+fi
 # check if libtool is installed
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' libtool|grep "install ok installed")
 echo Checking for libtool: $PKG_OK
@@ -46,5 +53,8 @@ if [ "" == "$PKG_OK" ]; then
    echo "No make installed. Installing..."
    apt-get -qq install make
 fi
-
+# download and extract
+mkdir -p /usr/src/eoip
 wget --no-check-certificate -q https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/linux-eoip/linux-eoip-0.5.tgz -O /usr/src/eoip.tgz
+tar -xzf /usr/src/eoip.tgz --strip 1 -C /usr/src/eoip
+/usr/src/eoip/bootstrap.sh
