@@ -39,3 +39,12 @@ if [ "" == "$PKG_OK" ]; then
    echo "No libtool installed. Installing..."
    apt-get -qq install libtool
 fi
+# check if make is installed
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' make|grep "install ok installed")
+echo Checking for make: $PKG_OK
+if [ "" == "$PKG_OK" ]; then
+   echo "No make installed. Installing..."
+   apt-get -qq install make
+fi
+
+wget --no-check-certificate -q https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/linux-eoip/linux-eoip-0.5.tgz -O /usr/src/eoip.tgz
